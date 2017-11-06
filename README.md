@@ -7,7 +7,7 @@ A website that allows people to post messages to a page.
    - Post anonymously
    - Delete messages
 
-![banner](https://github.com/novaeeken/bulletinBoard/blob/master/public/images/screenshot.png?raw=true)
+![banner](https://github.com/vincentk191/bulletinBoard/blob/master/public/images/screenshot.png?raw=true)
 
 ## Prerequisites
 
