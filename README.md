@@ -7,6 +7,8 @@ A website that allows people to post messages to a page.
    - Post anonymously
    - Delete messages
 
+![banner](https://github.com/novaeeken/bulletinBoard/blob/master/public/images/screenshot.png?raw=true)
+
 ## Prerequisites
 
 Requires your environment variables to be set to a default value of your USER and PASSWORD (if you have one).
