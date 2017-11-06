@@ -1,0 +1,102 @@
+doctype html
+html
+   head
+      title Bulletin Board
+      script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+      link(rel='stylesheet', type='text/css', href='https://bootswatch.com/4/superhero/bootstrap.css')
+      script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js')
+   body
+      nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
+         button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarColor01', aria-controls='navbarColor01', aria-expanded='false', aria-label='Toggle navigation')
+            span.navbar-toggler-icon
+         a.navbar-brand(href='/') Post-it
+         #navbarColor01.collapse.navbar-collapse
+            ul.navbar-nav.mr-auto
+               li.nav-item.active
+                  a.nav-link(href='/')
+                     | Home 
+                     span.sr-only (current)
+               li.nav-item
+                  a.nav-link(href='/messages') Post
+               form.form-inline
+                  input.form-control.mr-sm-2(type='text', placeholder='Search titles')
+      .content 
+         h1.header(style='padding:10px') Board
+         button.btn.btn-link(type='button' alt='editButton') Edit
+         table.table.table-striped.table-hover.table-bordered
+            thead.thead-dark
+               tr
+                  th #
+                  th Title
+                  th Content
+                  th Username
+            tbody
+               each message in output
+                  tr.table-warning
+                     td 
+                        p.text-danger #{message.id}
+                     td 
+                        p #{message.title}
+                     td
+                        button.close(type='button', data-dismiss='modal', aria-label='Close')
+                           span(aria-hidden='true') ×
+                           p(style='text-indent: 100%; white-space: nowrap; overflow: hidden;') #{message.id}
+                        p.text-primary #{message.body}
+                     td
+                        p <em>#{message.username}
+      .footer
+         p Copyright © 2017 by Vincent K
+      script.
+         $(document).ready(function(){
+            $('button.close').hide();
+            
+            /*Search function*/
+            $('input').keyup(function(){
+               setTimeout(function () {
+                  const search = $('input').val().toLowerCase();
+                     $('tbody tr').each(function(row,tr){
+                        let found = {
+                           id: $(tr).find('td:eq(0)').text().toLowerCase(),
+                           title: $(tr).find('td:eq(1)').text().toLowerCase(),
+                           body: $(tr).find('td:eq(2)').text().toLowerCase()
+                        }
+                        let content = $(this);
+                        if(search == ''){
+                           content.show();
+                        } else if(found.title.indexOf(search) == -1){
+                           content.hide();
+                        } else {
+                           content.show();
+                        }
+                     });
+               }, 0);
+               
+            });
+            
+            /*Edit Button*/
+            $('button.btn.btn-link').click(function() {
+               $('button.close').slideToggle(300);
+            });
+            
+            /*Edit Function*/
+            $('button.close').click(function() {
+               let rowId = $(this).text();
+               rowId = rowId.slice(1);
+               $('tbody tr').each(function(row,tr){
+                  let found = {
+                     id: parseInt($(tr).find('td:eq(0)').text()),
+                     title: $(tr).find('td:eq(1)').text().toLowerCase(),
+                     body: $(tr).find('td:eq(2)').text().toLowerCase()
+                  }
+                  let content = $(this);
+                  if(rowId == found.id){
+                     console.log(content);
+                     console.log(rowId);
+                     content.hide();
+                     $.get('/deleted', { input: rowId }, function(data){
+                        return;
+                     });
+                  }
+               });
+            });
+         });

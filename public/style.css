@@ -1,0 +1,92 @@
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+body {
+background-image: url('https://media.giphy.com/media/xUOrwia5soLxB0inS0/giphy.gif');
+   /*background-color: #0e0e3f;*/
+   background-size: cover;
+   /*filter: blur(5px);*/
+   color: white;
+   font-weight: lighter;
+   font-size: 20px;
+   display: grid;
+
+}
+
+.navigation {
+   /*grid-area: sidebar;*/
+   list-style: none;
+   background-color: black;
+   /*margin: 40px;*/
+   z-index: 1;
+
+
+}
+
+.navigation ul {
+   /*padding: 25px;*/
+}
+.navigation li {
+   display: inline;
+   list-style: none;
+   float: right;
+   padding: 55px;
+
+}
+
+.navigation a {
+   font-family: 'Roboto', sans-serif;
+   text-decoration: none;
+   color: white;
+   text-shadow: 1px 1px 80px;
+   text-align: right;
+   padding: 55px;
+}
+
+.navigation a:hover {
+   color: white;
+   font-family: 'Roboto', sans-serif;
+   border: 0;
+   background-color: skyblue;
+   width: 25%;
+   transition: all 0.5s;
+   text-shadow: 1px 1px 40px;
+}
+.content {
+   margin-left: 0px;
+   padding-left: 0px;
+}
+
+.content li {
+   padding: 1em;
+   border: 12px;
+   border-color: white;
+   list-style: none;
+}
+
+h1, .footer {
+   background: yellowgreen;
+   padding: 15px;
+   width: 100%;
+}
+
+h5{
+   font-style: italic;
+}
+
+.footer {
+   position:sticky;
+   margin: 0;
+   grid-area: footer;
+}
+
+input {
+   font-size: 20px;
+}
+
+button {
+   font-size: 20px;
+}
