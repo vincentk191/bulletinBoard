@@ -40,8 +40,8 @@ html
                         p #{message.title}
                      td
                         button.close(type='button', data-dismiss='modal', aria-label='Close')
-                           span(aria-hidden='true') ×
-                           p(style='text-indent: 100%; white-space: nowrap; overflow: hidden;') #{message.id}
+                           span(aria-hidden='true' position='absolute') ×
+                           p(style='text-indent: 100%; white-space: nowrap; overflow: hidden; font-size: 0px') #{message.id}
                         p.text-primary #{message.body}
                         .form-group.has-success
                            input#inputValid.form-control.is-valid.text-primary(type='text', value='')
@@ -81,7 +81,7 @@ html
             /*Edit Button*/
             $('button.btn.btn-link').click(function() {
                $('#saveButton').slideToggle(300);
-               $('button.close span').slideToggle(300);
+               $('button.close').slideToggle(300);
                $('.form-group.has-success').slideToggle(300);
             });
             /*Edit(delete) Function*/
