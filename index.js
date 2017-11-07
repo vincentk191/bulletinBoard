@@ -22,6 +22,7 @@ app.set('view engine', 'pug');
 
 client.connect();
 
+// Index route
 app.get('/', (req, res) => {
    const execute = (fileName,element)=>{
       res.render(fileName,{
@@ -29,14 +30,16 @@ app.get('/', (req, res) => {
       })
    };
 
-   client.query('select * from messages')
+   client.query('select * from messages order by id')
       .then(res => {execute('index',res.rows)},console.error);
 });
 
+// Directing to messages page
 app.get('/messages', (req, res) => {
    res.render('messages');
 });
 
+// Add Post route
 app.post('/addPost',(req,res) => {
    const input = {
       title: req.body.title,
@@ -59,13 +62,23 @@ app.post('/addPost',(req,res) => {
 
    });
 });
-var server = app.listen(3000, () => {
-   console.log(`Server's working just fine on port 3000!`);
-});
-
+// Delete Route
 app.get('/deleted', (req,res)=>{
    const rowId = req.query.input;
 
    client.query(`delete from messages where id = ${rowId}`)
       .then(output => res.send({output: output}),console.error);
+});
+
+// Edit route
+app.get('/edited', (req,res)=>{
+   const newContent = req.query.input;
+   const rowId = req.query.rowid
+   
+   client.query(`update messages set body = '${newContent}' where id = ${rowId}`)
+      .then(res.send()).catch(console.error);
+});
+
+var server = app.listen(3000, () => {
+   console.log(`Server's working just fine on port 3000!`);
 });

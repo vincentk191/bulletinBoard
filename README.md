@@ -6,6 +6,7 @@ A website that allows people to post messages to a page.
    - Post messages
    - Post anonymously
    - Delete messages
+   - Edit messages on main board
 
 ![banner](https://github.com/vincentk191/bulletinBoard/blob/master/public/images/screenShot.png?raw=true)
 
