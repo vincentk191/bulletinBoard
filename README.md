@@ -10,6 +10,8 @@ A website that allows people to post messages to a page.
 
 ![banner](https://github.com/vincentk191/bulletinBoard/blob/master/public/images/screenShot.png?raw=true)
 
+![banner](https://github.com/vincentk191/bulletinBoard/blob/master/public/images/screenShot2.png?raw=true)
+
 ## Prerequisites
 
 Requires your environment variables to be set to a default value of your USER and PASSWORD (if you have one).
