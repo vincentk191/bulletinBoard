@@ -22,7 +22,7 @@ html
                   input.form-control.mr-sm-2(type='text', placeholder='Search titles')
       .content 
          h1.header(style='padding:10px') Board
-         button.btn.btn-link(type='button' alt='editButton') Edit
+         button.btn.btn-link(type='button' id='editButton') Edit
          button.btn.btn-link(type='button' id='saveButton') Save
          table.table.table-striped.table-hover.table-bordered
             thead.thead-dark
@@ -81,7 +81,7 @@ html
             /*Edit Button*/
             $('button.btn.btn-link').click(function() {
                $('#saveButton').slideToggle(300);
-               $('button.close').slideToggle(300);
+               $('button.close span').slideToggle(300);
                $('.form-group.has-success').slideToggle(300);
             });
             /*Edit(delete) Function*/
