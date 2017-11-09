@@ -30,7 +30,6 @@ html
                   th #
                   th Title
                   th Content
-                  th Username
             tbody
                each message in output
                   tr.table-warning
@@ -45,8 +44,6 @@ html
                         p.text-primary #{message.body}
                         .form-group.has-success
                            input#inputValid.form-control.is-valid.text-primary(type='text', value='')
-                     td
-                        p <em>#{message.username}
       .footer
          p Copyright © 2017 by Vincent K
       script.

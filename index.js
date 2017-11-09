@@ -44,20 +44,15 @@ app.post('/addPost',(req,res) => {
    const input = {
       title: req.body.title,
       body: req.body.body,
-      name: req.body.username
    }
 
-   if(input.name == undefined || input.name == ''){
-      input.name = 'Anonymous';
-   }
-
-   const array = [input.title,input.body,input.name];
+   const array = [input.title,input.body];
 
    client.query('select * from messages',(err,rep)=>{
       if (err){
          throw err;
       }
-      client.query('insert into messages (title,body,username) values ($1,$2,$3)',array)
+      client.query('insert into messages (title,body) values ($1,$2)',array)
          .then(res.redirect('/'),console.error);
 
    });
@@ -74,7 +69,7 @@ app.get('/deleted', (req,res)=>{
 app.get('/edited', (req,res)=>{
    const newContent = req.query.input;
    const rowId = req.query.rowid
-   
+
    client.query(`update messages set body = '${newContent}' where id = ${rowId}`)
       .then(res.send()).catch(console.error);
 });
