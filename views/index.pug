@@ -96,7 +96,7 @@ html
                   }
                   let content = $(this);
                   if(rowId == found.id){
-                     content.hide();
+                     content.hide(300);
                      $.get('/deleted', { input: rowId }, function(data){
                         return;
                      });
