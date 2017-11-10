@@ -9,7 +9,7 @@ html
       nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
          button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarColor01', aria-controls='navbarColor01', aria-expanded='false', aria-label='Toggle navigation')
             span.navbar-toggler-icon
-         a.navbar-brand(href='/') Post-it
+         a.navbar-brand(href='/') Bulletin
          #navbarColor01.collapse.navbar-collapse
             ul.navbar-nav.mr-auto
                li.nav-item.active
@@ -26,27 +26,21 @@ html
          button.btn.btn-link(type='button' id='saveButton') Save
          table.table.table-striped.table-hover.table-bordered
             thead.thead-dark
-               tr
-                  th #
-                  th Title
-                  th Content
-                  th Username
+               tr(style='font-size:20px')
+                  th Comments
+                  th 
             tbody
                each message in output
-                  tr.table-warning
-                     td 
-                        p.text-danger #{message.id}
+                  tr.table-active
                      td 
                         p #{message.title}
                      td
-                        button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        button.close(type='button', data-dismiss='modal', aria-label='Close' alt=`${message.id}`)
                            span(aria-hidden='true' position='absolute') ×
-                           p(style='text-indent: 100%; white-space: nowrap; overflow: hidden; font-size: 0px') #{message.id}
                         p.text-primary #{message.body}
                         .form-group.has-success
                            input#inputValid.form-control.is-valid.text-primary(type='text', value='')
-                     td
-                        p <em>#{message.username}
+                        p.username - <em>#{message.username}
       .footer
          p Copyright © 2017 by Vincent K
       script.
@@ -61,9 +55,9 @@ html
                   const search = $('input').val().toLowerCase();
                      $('tbody tr').each(function(col,tr){
                         let found = {
-                           id: $(tr).find('td:eq(0)').text().toLowerCase(),
-                           title: $(tr).find('td:eq(1)').text().toLowerCase(),
-                           body: $(tr).find('td:eq(2)').text().toLowerCase()
+                           id: $(tr).find('button.close').attr('alt'),
+                           title: $(tr).find('td:eq(0)').text().toLowerCase(),
+                           body: $(tr).find('p.text-primary').text()
                         }
                         let content = $(this);
                         if(search == ''){
@@ -86,17 +80,16 @@ html
             });
             /*Edit(delete) Function*/
             $('button.close').click(function() {
-               let rowId = $(this).text();
-               rowId = rowId.slice(1);
+               let rowId = $(this).attr('alt')
                $('tbody tr').each(function(row,tr){
                   let found = {
-                     id: parseInt($(tr).find('td:eq(0)').text()),
-                     title: $(tr).find('td:eq(1)').text().toLowerCase(),
-                     body: $(tr).find('td:eq(2)').text().toLowerCase()
+                     id: $(tr).find('button.close').attr('alt'),
+                     title: $(tr).find('td:eq(0)').text().toLowerCase(),
+                     body: $(tr).find('p.text-primary').text()
                   }
                   let content = $(this);
                   if(rowId == found.id){
-                     content.hide();
+                     content.hide(300);
                      $.get('/deleted', { input: rowId }, function(data){
                         return;
                      });
@@ -108,13 +101,10 @@ html
             $('button.btn.btn-link').click(function() {
                $('tbody tr').each(function(row,tr){
                   let found = {
-                     id: parseInt($(tr).find('td:eq(0)').text()),
-                     title: $(tr).find('td:eq(1)').text().toLowerCase(),
-                     body: $(tr).find('td:eq(2)').text()
+                     id: $(tr).find('button.close').attr('alt'),
+                     title: $(tr).find('td:eq(0)').text().toLowerCase(),
+                     body: $(tr).find('p.text-primary').text()
                   }
-                  /*Filter through the body to ensure its the body not the button*/
-                  found.body = found.body.split(`×${found.id}`);
-                  found.body = found.body[1];
                   $(tr).find('input#inputValid.form-control.is-valid').attr('value',`${found.body}`)
                });
             });
@@ -123,17 +113,14 @@ html
             $('#saveButton').click(function() {
                $('tbody tr').each(function(row,tr){
                   let found = {
-                     id: parseInt($(tr).find('td:eq(0)').text()),
-                     title: $(tr).find('td:eq(1)').text().toLowerCase(),
-                     body: $(tr).find('td:eq(2)').text()
+                     id: $(tr).find('button.close').attr('alt'),
+                     title: $(tr).find('td:eq(0)').text().toLowerCase(),
+                     body: $(tr).find('p.text-primary').text()
                   }
-                  /*Filter through the body to ensure its the body not the button "x" or row ID*/
-                  found.body = found.body.split(`×${found.id}`);
-                  found.body = found.body[1];
                   let userinput = $(tr).find('input#inputValid.form-control.is-valid').val();
                   if (userinput !== found.body){
                      setTimeout(function () {
-                        $(tr).find('td:eq(2)').html(`<button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span><p style="text-indent: 100%; white-space: nowrap; overflow: hidden;">${found.id}</p></button><p class="text-primary">${userinput}<div class="form-group has-success"><input id="inputValid" type="text" value="${userinput}" class="form-control is-valid text-primary"/></div></p>`);
+                        $(tr).find('p.text-primary').html(`<button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span><p style="text-indent: 100%; white-space: nowrap; overflow: hidden;">${found.id}</p></button><p class="text-primary">${userinput}<div class="form-group has-success"><input id="inputValid" type="text" value="${userinput}" class="form-control is-valid text-primary"/></div></p>`);
                         $('button.close').hide();
                         $('.form-group.has-success').hide();
                      }, 300);
