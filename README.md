@@ -8,9 +8,9 @@ A website that allows people to post messages to a page.
    - Delete messages
    - Edit messages on main board
 
-![banner](https://github.com/vincentk191/bulletinBoard/blob/master/public/images/screenShot.png?raw=true)
+![banner](https://github.com/vincentk191/bulletinBoard/blob/SQL/public/images/screenShot.png?raw=true)
 
-![banner](https://github.com/vincentk191/bulletinBoard/blob/master/public/images/screenShot2.png?raw=true)
+![banner](https://github.com/vincentk191/bulletinBoard/blob/SQL/public/images/screenShot2.png?raw=true)
 
 ## Prerequisites
 
